@@ -1,0 +1,16 @@
+name: Tests
+on:
+  push:
+    branches: [develop]
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copia repositorio
+      uses: actions/checkout@v2
+    - name: Construye imagen
+      run: docker build --tag muter .
+    - name: Verifica el formato
+      run: docker run muter make check
+    - name: Corre pruebas
+      run: docker run muter make tests
